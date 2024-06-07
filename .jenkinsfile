@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone repository') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/parasb456/CRUD-App.git']])
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t crud-app-app .'
+                sh 'docker pull mongo:latest'
+            }
+        }
+        stage('Push Docker Images') {
+            steps {
+                withCredentials([string(credentialsId: 'Docker_password322343', variable: 'docker_password'), string(credentialsId: 'docker-Username23432', variable: 'docker_username')]) {
+                    // Build and tag CRUD app Docker image
+                    sh 'docker build -t ${docker_username}/crud-app-app .'
+                    // Push CRUD app Docker image
+                    sh 'docker push ${docker_username}/crud-app-app'
+                    
+                    // Build and tag Mongo Docker image
+                    sh 'docker build -t ${docker_username}/mongo:latest .'
+                    // Push Mongo Docker image
+                    sh 'docker push ${docker_username}/mongo:latest'
+                }
+            }
+        }
+    }
+   
+}
