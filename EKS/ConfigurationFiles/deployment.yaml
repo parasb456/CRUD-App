@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: CRUD-application
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: CRUD-application
+  template:
+    metadata:
+      labels:
+        app: CRUD-application
+    spec:
+      containers:
+      - name: crud-app-app
+        image: parasb402/crud-app-app:tagname
+        ports:
+        - containerPort: 8081
+        env:
+        - name: MONGODB_URI
+          value: "mongodb://mongo-db:27017/Assignment_CRUD_APP"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongo
+        image: parasb402/mongo:tagname
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: mongo-storage
+          mountPath: /data/db
+      volumes:
+      - name: mongo-storage
+        persistentVolumeClaim:
+          claimName: mongo-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
