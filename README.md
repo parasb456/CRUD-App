@@ -247,3 +247,15 @@ Create a `Jenkinsfile` in the root directory of your project. Below is an exampl
 2. Select your job.
 3. Click on "Build Now".
 
+
+Connecting Terraform with AWS
+It's very easy to connect Terraform with AWS. Run the aws configure command and provide the AWS security credentials as shown in the video.
+
+Initialize Terraform
+Clone the repository.
+Run terraform init. This will initialize the Terraform environment for you and download the modules, providers, and other configurations required.
+Optionally Review the Terraform Configuration
+Run terraform plan to see the configuration it creates when executed.
+
+Apply Terraform Configuration to Create EKS Cluster with VPC
+Run terraform apply to create the EKS cluster along with the VPC.
