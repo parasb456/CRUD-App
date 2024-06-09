@@ -248,7 +248,6 @@ Create a `Jenkinsfile` in the root directory of your project. Below is an exampl
 3. Click on "Build Now".
 
 
-# README
 
 ## Create a Kubernetes Cluster on AWS using Terraform
 
