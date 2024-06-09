@@ -187,64 +187,67 @@ docker-compose down
 - The Docker setup assumes your application logic is in the same directory as the `Dockerfile`.
 
 
-#Node.js/Python Application with Docker and CI/CD
+# Node.js/Python Application with Docker and CI/CD
 
 This repository contains a Node.js/Python application that interacts with a MongoDB database. The application is dockerized to ensure a consistent development and production environment. This README provides instructions for setting up and running the application using Docker and Docker Compose, as well as setting up Continuous Integration (CI) to build and push Docker images to Docker Hub.
 
-#Prerequisites
+## Prerequisites 
+
 Ensure you have the following installed on your local system:
+- Docker
+- Docker Compose
+- AWS CLI
+- Jenkins
+- Terraform
+- kubectl
 
-Docker
-Docker Compose
-AWS CLI
-Jenkins
-Terraform
-kubectl
+## Setting Up Jenkins on an EC2 Instance
+
+### Create EC2 Instance
+
+#### Launch an EC2 Instance:
+- **Instance Type:** t2.medium
+- **Storage:** 30 GB
+
+#### Configure Security Group:
+- Add a rule to allow traffic on port 8080 for Jenkins.
+
+If you want scripts to install required dependencies, refer to this link: [Script Vault - A Wiki of Installation Scripts](https://mrcloudbook.com/scriptvault-a-wiki-of-installation-scripts/)
+
+### Jenkins Setup
+
+#### Install Required Plugins
+1. Go to Jenkins Dashboard > Manage Jenkins > Manage Plugins.
+2. Install the following plugins:
+   - Docker Pipeline
+   - Docker
+   - Docker Commons
+   - NodeJS Plugin (for Node.js applications)
+
+#### Create a Jenkins Job
+1. Go to Jenkins Dashboard.
+2. Click on "New Item".
+3. Enter an item name, select "Pipeline", and click "OK".
+4. In the Pipeline section, select "Pipeline script from SCM".
+5. Set SCM to "Git" and provide your repository URL and credentials if necessary.
+6. Set the "Script Path" to the location of your `Jenkinsfile`.
+
+### Jenkins Pipeline Script
+
+Create a `Jenkinsfile` in the root directory of your project. Below is an example of what the `Jenkinsfile` might look like:
 
 
-#Setting Up Jenkins on an EC2 Instance
-#Create EC2 Instance
-#Launch an EC2 Instance:
 
-Instance Type: t2.medium
-Storage: 30 GB
-Configure Security Group:
+### Configure Docker in Jenkins
+1. Go to Jenkins Dashboard > Manage Jenkins > Configure System.
+2. Under "Docker", add a new Docker Cloud and configure it with the appropriate settings for your Docker environment.
 
-Add a rule to allow traffic on port 8080 for Jenkins.
+### Running the Pipeline
+1. Go to Jenkins Dashboard.
+2. Select your job.
+3. Click on "Build Now".
 
-Also if you can want the scripts to install required dependencies the you can refer this link:
-
-https://mrcloudbook.com/scriptvault-a-wiki-of-installation-scripts/
-
-
-Jenkins Setup
-Install Required Plugins
-Go to Jenkins Dashboard > Manage Jenkins > Manage Plugins.
-Install the following plugins:
-Docker Pipeline
-Docker
-Docker Commons
-NodeJS Plugin (for Node.js applications)
-Create a Jenkins Job
-Go to Jenkins Dashboard.
-Click on "New Item".
-Enter an item name, select "Pipeline", and click "OK".
-In the Pipeline section, select "Pipeline script from SCM".
-Set SCM to "Git" and provide your repository URL and credentials if necessary.
-Set the "Script Path" to the location of your Jenkinsfile.
-Jenkins Pipeline Script
-Create a Jenkinsfile in the root directory of your project. Below is an example of what the Jenkinsfile might look like:
-
-
-Configure Docker in Jenkins
-Go to Jenkins Dashboard > Manage Jenkins > Configure System.
-Under "Docker", add a new Docker Cloud and configure it with the appropriate settings for your Docker environment.
-Running the Pipeline
-Go to Jenkins Dashboard.
-Select your job.
-Click on "Build Now".
 Jenkins will clone the repository, build the Docker image, run tests, push the Docker image to a registry, and deploy the application.
 
-Conclusion
+## Conclusion
 You have now set up a CI/CD pipeline for your Node.js/Python application using Jenkins and Docker. This pipeline will automate the process of building, testing, and deploying your application, ensuring that new changes are continuously integrated and deployed with minimal manual intervention.
-
