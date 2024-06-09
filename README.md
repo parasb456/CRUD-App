@@ -308,3 +308,66 @@ You will be prompted to confirm the action. Type `yes` and press Enter.
 
 By following these steps, you have successfully created an Amazon EKS cluster along with the necessary VPC using Terraform. This setup allows you to manage your Kubernetes cluster on AWS efficiently. You can now deploy your applications to the EKS cluster.
 
+
+
+# README for Deploying CRUD Application on EKS
+
+This document provides instructions for deploying a CRUD application to an Amazon EKS cluster using Terraform and a Jenkins pipeline.
+
+## Prerequisites
+
+Before starting, ensure you have the following:
+
+1. **AWS CLI** installed and configured with necessary permissions.
+2. **kubectl** installed and configured.
+3. **Terraform** installed.
+4. **Jenkins** set up with a pipeline for deploying the application.
+
+
+
+
+## Pipeline Stage: Deploying CRUD Application
+
+This stage in the Jenkins pipeline is responsible for deploying the CRUD application to the EKS cluster. The deployment utilizes Kubernetes configuration files for deploying the application and its services.
+
+### Pipeline Configuration
+
+In your Jenkins pipeline script, include the following stage to deploy the CRUD application:
+
+```groovy
+stage('Deploying CRUD Application') {
+    steps {
+        script {
+            dir('EKS/ConfigurationFiles') {
+                sh 'aws eks update-kubeconfig --name assignment-eks-cluster'
+                sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl apply -f service.yaml'
+            }
+        }
+    }
+}
+```
+
+### Explanation of Steps
+
+1. **Change Directory**: The `dir('EKS/ConfigurationFiles')` command ensures that the pipeline script changes to the directory containing the Kubernetes configuration files.
+
+2. **Update Kubeconfig**: The `aws eks update-kubeconfig --name assignment-eks-cluster` command updates the kubeconfig file to enable kubectl to interact with the specified EKS cluster (`assignment-eks-cluster`).
+
+3. **Apply Deployment Configuration**: The `kubectl apply -f deployment.yaml` command applies the deployment configuration defined in `deployment.yaml` to the EKS cluster. This step creates or updates the necessary Kubernetes resources for the application.
+
+4. **Apply Service Configuration**: The `kubectl apply -f service.yaml` command applies the service configuration defined in `service.yaml` to the EKS cluster. This step ensures that the service for the CRUD application is created or updated, allowing external access to the application.
+
+### Kubernetes Configuration Files
+
+Ensure that the `EKS/ConfigurationFiles` directory contains the following files:
+
+1. **deployment.yaml**: This file defines the deployment configuration for the CRUD application, including the number of replicas, container image, and other necessary settings.
+
+2. **service.yaml**: This file defines the service configuration, exposing the CRUD application to external traffic and defining the service type, ports, and other settings.
+
+
+## Conclusion
+
+By following the above steps and configuring your Jenkins pipeline and Kubernetes files as described, you can successfully deploy your CRUD application to an EKS cluster. Ensure that your AWS CLI and kubectl are properly configured and that your Kubernetes configuration files are correctly defined for your application's requirements.
+
