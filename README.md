@@ -247,7 +247,3 @@ Create a `Jenkinsfile` in the root directory of your project. Below is an exampl
 2. Select your job.
 3. Click on "Build Now".
 
-Jenkins will clone the repository, build the Docker image, run tests, push the Docker image to a registry, and deploy the application.
-
-## Conclusion
-You have now set up a CI/CD pipeline for your Node.js/Python application using Jenkins and Docker. This pipeline will automate the process of building, testing, and deploying your application, ensuring that new changes are continuously integrated and deployed with minimal manual intervention.
