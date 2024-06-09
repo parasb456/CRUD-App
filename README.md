@@ -248,14 +248,64 @@ Create a `Jenkinsfile` in the root directory of your project. Below is an exampl
 3. Click on "Build Now".
 
 
-Connecting Terraform with AWS
-It's very easy to connect Terraform with AWS. Run the aws configure command and provide the AWS security credentials as shown in the video.
+# README
 
-Initialize Terraform
-Clone the repository.
-Run terraform init. This will initialize the Terraform environment for you and download the modules, providers, and other configurations required.
-Optionally Review the Terraform Configuration
-Run terraform plan to see the configuration it creates when executed.
+## Create a Kubernetes Cluster on AWS using Terraform
 
-Apply Terraform Configuration to Create EKS Cluster with VPC
-Run terraform apply to create the EKS cluster along with the VPC.
+This README provides a step-by-step guide to create an Amazon EKS (Elastic Kubernetes Service) cluster using Terraform. We will also configure AWS credentials, initialize Terraform, and apply the Terraform configuration to set up the EKS cluster along with the required VPC.
+
+### Prerequisites
+
+- AWS account with appropriate permissions to create resources
+- AWS CLI installed and configured
+- Terraform installed
+- Git installed
+
+### Step 1: Clone the Repository
+
+Clone the repository that contains the Terraform configuration for creating the EKS cluster:
+
+```bash
+git clone <repository_url>
+cd <repository_folder>/EKS
+```
+
+### Step 2: Configure AWS Credentials
+
+To connect Terraform with AWS, configure your AWS credentials. Run the following command and provide your AWS security credentials:
+
+```bash
+aws configure
+```
+
+You will be prompted to enter your AWS Access Key ID, Secret Access Key, region, and output format.
+
+### Step 3: Initialize Terraform
+
+Initialize the Terraform environment. This will download the necessary modules, providers, and other configurations required for the setup:
+
+```bash
+terraform init
+```
+
+### Step 4: Review the Terraform Configuration (Optional)
+
+To understand what resources will be created, you can review the Terraform plan. This command will display the actions Terraform will take when you apply the configuration:
+
+```bash
+terraform plan
+```
+
+### Step 5: Apply Terraform Configuration
+
+Apply the Terraform configuration to create the EKS cluster along with the VPC. This will create the infrastructure on AWS as defined in the Terraform configuration files:
+
+```bash
+terraform apply
+```
+
+You will be prompted to confirm the action. Type `yes` and press Enter.
+
+
+By following these steps, you have successfully created an Amazon EKS cluster along with the necessary VPC using Terraform. This setup allows you to manage your Kubernetes cluster on AWS efficiently. You can now deploy your applications to the EKS cluster.
+
