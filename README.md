@@ -2,7 +2,7 @@
 
 This repository contains a simple Node.js CRUD (Create, Read, Update, Delete) application with APIs. This application allows you to perform basic CRUD operations on a collection of items.
 
-## Features ⭐
+## Features 
 
 - **Create:** Add new items to the collection.
 - **Read:** Retrieve all items or a specific item from the collection.
@@ -53,7 +53,7 @@ npm install
 
      Replace `your_mongodb_connection_uri` with your MongoDB connection URI.
 
-## Usage 🚀👾
+## Usage 
 
 1. Start the server:
 
@@ -63,7 +63,7 @@ npm start index.js
 
 2. Once the server is running, you can use your preferred API testing tool (e.g., Postman) to interact with the APIs.
 
-## API Endpoints 🛠️
+## API Endpoints 
 
 - **GET /items**: Get all items.
 - **GET /items/:id**: Get item by ID.
